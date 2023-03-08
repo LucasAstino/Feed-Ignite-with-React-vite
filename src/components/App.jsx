@@ -48,7 +48,7 @@ function App() {
       <main>
        {posts.map(post => {
         console.log(post.publishedAt)
-        return <Post publishedAt={post.publishedAt} author={post.author}/>
+        return <Post publishedAt={post.publishedAt} author={post.author} content={post.content}/>
       })} 
       </main>
     </div>

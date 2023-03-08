@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 
 
-export function Post({ author, publishedAt }){
+export function Post({ author, publishedAt,content }){
 
      const dateFormattedTitle = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'",{locale:ptBr,}
      )
@@ -17,11 +17,10 @@ export function Post({ author, publishedAt }){
      const dateFormattedRelativetonow = formatDistanceToNow(publishedAt,{locale:ptBr,addSuffix:true})
 
      const [comments,setComment] = useState([
-        1,2,3
+        1,2,3,4,5,6
     ])
 
         function handleCreateNewComment(){
-            
             console.log('ooi')
         }
      
@@ -44,10 +43,17 @@ export function Post({ author, publishedAt }){
             </header>
 
             <div className={style.content}>
-            <p>Fala galeraa 👋</p>
-            <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-            <p>👉 <a href='#'>jane.design/doctorcare</a></p>
-            <p> <a href='#'>#novoprojeto #nlw #rocketseat</a></p>
+            {content.map(line => {
+            if (line.type === 'paragraph') {
+            return <p>{line.content}</p>;
+             } else if (line.type === 'link') {
+            return (
+              <p>
+                <a href="">{line.content}</a>
+              </p>
+            );
+            }
+            })}
             </div>
 
             <form onSubmit={handleCreateNewComment()} className={style.commentForm}>
