@@ -4,6 +4,7 @@ import style from './Post.module.css'
 
 import {format , formatDistanceToNow} from 'date-fns'
 import ptBr from 'date-fns/locale/pt-BR'
+import { useState } from 'react'
 
 
 
@@ -14,6 +15,15 @@ export function Post({ author, publishedAt }){
      )
 
      const dateFormattedRelativetonow = formatDistanceToNow(publishedAt,{locale:ptBr,addSuffix:true})
+
+     const [comments,setComment] = useState([
+        1,2,3
+    ])
+
+        function handleCreateNewComment(){
+            
+            console.log('ooi')
+        }
      
     
     return(
@@ -40,7 +50,7 @@ export function Post({ author, publishedAt }){
             <p> <a href='#'>#novoprojeto #nlw #rocketseat</a></p>
             </div>
 
-            <form className={style.commentForm}>
+            <form onSubmit={handleCreateNewComment()} className={style.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
 
@@ -54,9 +64,9 @@ export function Post({ author, publishedAt }){
             </form>
 
             <div className={style.commentList}>
-                <Comment/>
-                <Comment/>
-                <Comment/>
+                {comments.map(comment =>{
+                    return <Comment/>
+                })}
             </div>
 
         </article>
