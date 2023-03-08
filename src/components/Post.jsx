@@ -22,6 +22,7 @@ export function Post({ author, publishedAt,content }){
 
         function handleCreateNewComment(){
             console.log('ooi')
+            setComment([...comments, comments.length +1])
         }
      
     
