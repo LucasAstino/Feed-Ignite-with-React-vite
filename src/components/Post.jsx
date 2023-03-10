@@ -17,12 +17,24 @@ export function Post({ author, publishedAt,content }){
      const dateFormattedRelativetonow = formatDistanceToNow(publishedAt,{locale:ptBr,addSuffix:true})
 
      const [comments,setComment] = useState([
-        1,2,3,4,5,6
-    ])
+        1,2
+            ])
+
+    const [newCommentText,setNewCommentText] = useState('')
+    
 
         function handleCreateNewComment(){
-            console.log('ooi')
-            setComment([...comments, comments.length +1])
+            event.preventDefault()
+
+            setComment([...comments, newCommentText])
+            
+            setNewCommentText('')
+        }
+
+        function handleNewComment(){
+
+            setNewCommentText(event.target.value)
+           
         }
      
     
@@ -46,10 +58,10 @@ export function Post({ author, publishedAt,content }){
             <div className={style.content}>
             {content.map(line => {
             if (line.type === 'paragraph') {
-            return <p>{line.content}</p>;
+            return <p key={line.content}>{line.content}</p>;
              } else if (line.type === 'link') {
             return (
-              <p>
+              <p key={line.content}>
                 <a href="">{line.content}</a>
               </p>
             );
@@ -57,11 +69,14 @@ export function Post({ author, publishedAt,content }){
             })}
             </div>
 
-            <form onSubmit={handleCreateNewComment()} className={style.commentForm}>
+            <form onSubmit={handleCreateNewComment} className={style.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
 
                 <textarea
+                value={newCommentText}
+                onChange={handleNewComment}
+                name='text'
                 placeholder='Deixe um comentário'
                 />
 
@@ -72,7 +87,7 @@ export function Post({ author, publishedAt,content }){
 
             <div className={style.commentList}>
                 {comments.map(comment =>{
-                    return <Comment/>
+                    return <Comment key={comment} commentText={comment}/>
                 })}
             </div>
 
