@@ -47,8 +47,7 @@ function App() {
       <Sidebar/>
       <main>
        {posts.map(post => {
-        console.log(post.publishedAt)
-        return <Post publishedAt={post.publishedAt} author={post.author} content={post.content}/>
+        return <Post key={post.id} publishedAt={post.publishedAt} author={post.author} content={post.content}/>
       })} 
       </main>
     </div>
