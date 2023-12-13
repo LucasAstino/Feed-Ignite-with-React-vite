@@ -3,12 +3,18 @@ import { Avatar } from "./Avatar";
 import style from "./Comment.module.css";
 import { useState } from "react";
 
-export function Comment({ commentText }) {
+export function Comment({ commentText}) {
   const [counterLike, setCounterLike] = useState(20);
 
   const like = () => {
     setCounterLike(counterLike + 1);
   };
+
+  const deleteComment = (event) => {
+    let comment = event.target.closest(`.${style.comment}`)
+    comment.remove()
+    console.log(comment)
+  }
 
   return (
     <div className={style.comment}>
@@ -31,7 +37,7 @@ export function Comment({ commentText }) {
               </time>
             </div>
 
-            <button title="Deletar comentário">
+            <button onClick={deleteComment} title="Deletar comentário">
               <Trash size={24} />
             </button>
           </header>

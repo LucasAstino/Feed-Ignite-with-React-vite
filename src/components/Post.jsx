@@ -5,6 +5,7 @@ import style from './Post.module.css'
 import {format , formatDistanceToNow} from 'date-fns'
 import ptBr from 'date-fns/locale/pt-BR'
 import { useState } from 'react'
+import { useRef } from 'react';
 
 
 
@@ -21,14 +22,20 @@ export function Post({ author, publishedAt,content }){
             ])
 
     const [newCommentText,setNewCommentText] = useState('')
+
+    const formRef = useRef(null);
     
 
-        function handleCreateNewComment(){
+        function handleCreateNewComment(e){
             event.preventDefault()
 
             setComment([...comments, newCommentText])
             
             setNewCommentText('')
+
+            formRef.current.blur();
+
+            console.log(e.target)
         }
 
         function handleNewComment(){
@@ -69,7 +76,7 @@ export function Post({ author, publishedAt,content }){
             })}
             </div>
 
-            <form onSubmit={handleCreateNewComment} className={style.commentForm}>
+            <form ref={formRef} onSubmit={handleCreateNewComment} className={style.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
 
@@ -87,7 +94,7 @@ export function Post({ author, publishedAt,content }){
 
             <div className={style.commentList}>
                 {comments.map(comment =>{
-                    return <Comment key={comment} commentText={comment}/>
+                    return <Comment key={comment}  commentText={comment}/>
                 })}
             </div>
 
